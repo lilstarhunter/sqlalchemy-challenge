@@ -84,27 +84,29 @@ def stations():
 
     return jsonify(stations_list)
 
-# @app.route("/api/v1.0/passengers")
-# def passengers():
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
+@app.route("/api/v1.0/tobs")
+def tobs():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
 
-#     """Return a list of passenger data including the name, age, and sex of each passenger"""
-#     # Query all passengers
-#     results = session.query(Passenger.name, Passenger.age, Passenger.sex).all()
+    results = session.query(measurement.station, measurement.date, measurement.tobs)\
+                        .filter(measurement.station == "USC00519397")\
+                        .filter(measurement.date >= "2017-01-01")\
+                        .all()
 
-#     session.close()
+    session.close()
 
-#     # Create a dictionary from the row data and append to a list of all_passengers
-#     all_passengers = []
-#     for name, age, sex in results:
-#         passenger_dict = {}
-#         passenger_dict["name"] = name
-#         passenger_dict["age"] = age
-#         passenger_dict["sex"] = sex
-#         all_passengers.append(passenger_dict)
+    top_tobs = []
+    for station, date, tobs in results:
+        top_tobs_dict = {}
+        top_tobs_dict["station_id"] = station
+        top_tobs_dict["date"] = date
+        top_tobs_dict["temp"]= tobs
+        top_tobs.append(top_tobs_dict)
 
-#     return jsonify(all_passengers)
+    return jsonify(top_tobs)
+
+
 
 
 if __name__ == '__main__':
