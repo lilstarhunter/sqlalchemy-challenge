@@ -7,12 +7,16 @@ from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify
 
+from datetime import date
+from datetime import timedelta
+import datetime as dt
+
 
 #################################################
 # Database Setup
 #################################################
 engine = create_engine("sqlite:///Resources/hawaii.sqlite")
-conn = engine.connect()
+
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
@@ -22,9 +26,23 @@ Base.prepare(engine, reflect=True)
 measurement = Base.classes.measurement
 hawaii_station = Base.classes.station
 
+# This function called `calc_temps` will accept start date and end date in the format '%Y-%m-%d' 
+# and return the minimum, average, and maximum temperatures for that range of dates
+# def calc_temps(start_date, end_date):
+#     return session.query(func.min(measurement.tobs), func.avg(measurement.tobs),\
+#                         func.max(measurement.tobs))\
+#                         .filter(measurement.date >= start_date)\
+#                         .filter(measurement.date <= end_date).all()
+
+
+# Create a query that will tmin,tmax, tavg from start day to last recorded day
+
+    
+
 #################################################
 # Flask Setup
 #################################################
+
 app = Flask(__name__)
 
 
@@ -54,7 +72,7 @@ def precipitation():
 
     session.close()
 
-    # Create a dictionary from the row data and append to a list of all_passengers
+    
     rain = []
     for station, date, prcp in results:
         measurement_dict = {}
@@ -106,6 +124,27 @@ def tobs():
 
     return jsonify(top_tobs)
 
+@app.route("/api/v1.0/<start>")
+def query_startdate(start):
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    start = dt.datetime.strptime(start,"%Y-%m-%d")
+    sel = [func.min(measurement.tobs), func.avg(measurement.tobs), func.max(measurement.tobs)]
+    results = session.query(*sel).filter(measurement.date >= start).all()
+    
+    query_start = []
+    for min_1, avg_1, max_1 in results:
+        query_start_dict = {}
+        query_start_dict["min_temp"] = min_1
+        query_start_dict["avg_temp"] = round(avg_1,0)
+        query_start_dict["max_temp"] = max_1
+        query_start.append(query_start_dict)
+
+
+    session.close()
+
+    return jsonify(query_start)
 
 
 
