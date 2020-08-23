@@ -41,12 +41,28 @@ app = Flask(__name__)
 def welcome():
     """List all available api routes."""
     return (
+        "========================<br>"
         f"Available Routes:<br/>"
-        f"/api/v1.0/precipitation<br/>"
-        f"/api/v1.0/stations<br/>"
+        "========================<br><br>"
+        
+        "Precipitation Results<br>"
+        f"/api/v1.0/precipitation<br><br>"
+         "========================<br><br>"
+        "Hawaii Stations<br>"
+        f"/api/v1.0/stations<br><br>"
+        "========================<br><br>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/<start><br/>"
-        f"/api/v1.0/<start>/<end><br/>"
+        f"Temperature for most active station<br><br>"
+        "========================<br><br>"
+        f"/api/v1.0/YYYY-MM-DD<start><br>"
+        f"Retrieve summary statistics for each station from start date to current<br>"
+        f"Replace YYYY-MM-DD with start date<br><br>"
+        
+        "========================<br><br>"
+        f"/api/v1.0/YYYY-MM-DD<start>/YYYY-MM-DD<end><br>"
+        f"Retrieve summary statistics for each station from start date to end date<br>"
+        f"Replace YYYY-MM-DD with start date / end date<br>"
+    
     )
 
 
@@ -56,12 +72,12 @@ def precipitation():
     session = Session(engine)
 
     sel = [measurement.station, hawaii_station.name, measurement.date, measurement.prcp]
-    results = session.query(*sel).filter(measurement.station == hawaii_station.station).all()
-
+    results = session.query(*sel)\
+                    .filter(measurement.station == hawaii_station.station)\
+                    .all()
 
     session.close()
 
-    
     rain = []
     for station, name, date, prcp in results:
         rain_dict = {}
@@ -82,7 +98,6 @@ def stations():
     results = session.query(*sel).all()
 
     session.close()
-
 
     stations_list = []
     for station, name, latitude, longitude, elevation in results:
@@ -124,7 +139,6 @@ def tobs():
 def query_startdate(start):
     session = Session(engine)
 
-    start = dt.datetime.strptime(start,"%Y-%m-%d")
     sel = [measurement.station,\
             hawaii_station.name,\
             func.min(measurement.tobs),\
@@ -135,7 +149,8 @@ def query_startdate(start):
                 .filter(measurement.station == hawaii_station.station)\
                 .filter(measurement.date >= start)\
                 .all()
-    
+    session.close()
+
     query_start = []
     for station, name, min_1, avg_1, max_1 in results:
         query_start_dict = {}
@@ -146,19 +161,13 @@ def query_startdate(start):
         query_start_dict["max_temp"] = max_1
         query_start.append(query_start_dict)
 
-
-    session.close()
-
     return jsonify(query_start)
 
 @app.route("/api/v1.0/<start>/<end>")
-def query_startend(start,end):
+def query_startend(start, end):
     session = Session(engine)
 
-    start_d = dt.datetime.strptime(start,"%Y-%m-%d")
-    end_d = dt.datetime.strptime(end,"%Y-%m-%d")
-    sel = [measurement.date,\
-            measurement.station,\
+    sel = [measurement.station,\
             hawaii_station.name,\
             func.min(measurement.tobs),\
             func.avg(measurement.tobs),\
@@ -166,9 +175,11 @@ def query_startend(start,end):
     
     results = session.query(*sel)\
                         .group_by(measurement.station)\
-                        .filter(measurement.date >= start_d)\
-                        .filter(measurement.date <= end_d)\
+                        .filter(measurement.date >= start)\
+                        .filter(measurement.date <= end)\
                         .all()
+
+    session.close()
 
     query = []
     for station, name, min_1, avg_1, max_1 in results:
@@ -179,9 +190,6 @@ def query_startend(start,end):
         query_dict["avg_temp"] = avg_1
         query_dict["max_temp"] = max_1
         query.append(query_dict)
-
-
-    session.close()
 
     return jsonify(query)
 
