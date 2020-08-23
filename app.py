@@ -14,7 +14,7 @@ import datetime as dt
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///Resources/hawaii.sqlite")
+engine = create_engine("sqlite:///Resources/sawaii.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -22,8 +22,8 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Save reference to the table
-measurement = Base.classes.measurement
-hawaii_station = Base.classes.station
+m = Base.classes.measurement
+s = Base.classes.station
     
 
 #################################################
@@ -48,20 +48,20 @@ def welcome():
         "Precipitation Results<br>"
         f"/api/v1.0/precipitation<br><br>"
          "========================<br><br>"
-        "Hawaii Stations<br>"
+        "sawaii Stations<br>"
         f"/api/v1.0/stations<br><br>"
         "========================<br><br>"
         f"/api/v1.0/tobs<br/>"
         f"Temperature for most active station<br><br>"
         "========================<br><br>"
         f"/api/v1.0/YYYY-MM-DD<start><br>"
-        f"Retrieve summary statistics for each station from start date to current<br>"
-        f"Replace YYYY-MM-DD with start date<br><br>"
+        f"Retrieve summary statistics for eacs station from start date to current<br>"
+        f"Replace YYYY-MM-DD wits start date<br><br>"
         
         "========================<br><br>"
         f"/api/v1.0/YYYY-MM-DD<start>/YYYY-MM-DD<end><br>"
-        f"Retrieve summary statistics for each station from start date to end date<br>"
-        f"Replace YYYY-MM-DD with start date / end date<br>"
+        f"Retrieve summary statistics for eacs station from start date to end date<br>"
+        f"Replace YYYY-MM-DD wits start date / end date<br>"
     
     )
 
@@ -71,9 +71,9 @@ def precipitation():
 
     session = Session(engine)
 
-    sel = [measurement.station, hawaii_station.name, measurement.date, measurement.prcp]
+    sel = [m.station, s.name, m.date, m.prcp]
     results = session.query(*sel)\
-                    .filter(measurement.station == hawaii_station.station)\
+                    .filter(m.station == s.station)\
                     .all()
 
     session.close()
@@ -94,7 +94,7 @@ def stations():
 
     session = Session(engine)
 
-    sel = [hawaii_station.station, hawaii_station.name, hawaii_station.latitude, hawaii_station.longitude, hawaii_station.elevation]
+    sel =  [s.station, s.name, s.latitude, s.longitude, s.elevation]
     results = session.query(*sel).all()
 
     session.close()
@@ -115,11 +115,11 @@ def stations():
 def tobs():
 
     session = Session(engine)
-    sel = [measurement.station, hawaii_station.name, measurement.date, measurement.tobs]
+    sel = [m.station, s.name, m.date, m.tobs]
     results = session.query(*sel)\
-                        .filter(measurement.station == hawaii_station.station)\
-                        .filter(measurement.station == "USC00519397")\
-                        .filter(measurement.date >= "2017-01-01")\
+                        .filter(m.station == s.station)\
+                        .filter(m.station == "USC00519397")\
+                        .filter(m.date >= "2017-01-01")\
                         .all()
 
     session.close()
@@ -139,15 +139,15 @@ def tobs():
 def query_startdate(start):
     session = Session(engine)
 
-    sel = [measurement.station,\
-            hawaii_station.name,\
-            func.min(measurement.tobs),\
-            func.avg(measurement.tobs),\
-            func.max(measurement.tobs)]
+    sel = [m.station,\
+         s.name,\
+            func.min(m.tobs),\
+            func.avg(m.tobs),\
+            func.max(m.tobs)]
     results = session.query(*sel)\
-                .group_by(measurement.station)\
-                .filter(measurement.station == hawaii_station.station)\
-                .filter(measurement.date >= start)\
+                .group_by(m.station)\
+                .filter(m.station == s.station)\
+                .filter(m.date >= start)\
                 .all()
     session.close()
 
@@ -167,16 +167,16 @@ def query_startdate(start):
 def query_startend(start, end):
     session = Session(engine)
 
-    sel = [measurement.station,\
-            hawaii_station.name,\
-            func.min(measurement.tobs),\
-            func.avg(measurement.tobs),\
-            func.max(measurement.tobs)]
+    sel = [m.station,\
+         s.name,\
+            func.min(m.tobs),\
+            func.avg(m.tobs),\
+            func.max(m.tobs)]
     
     results = session.query(*sel)\
-                        .group_by(measurement.station)\
-                        .filter(measurement.date >= start)\
-                        .filter(measurement.date <= end)\
+                        .group_by(m.station)\
+                        .filter(m.date >= start)\
+                        .filter(m.date <= end)\
                         .all()
 
     session.close()
