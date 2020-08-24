@@ -4,4 +4,4 @@
 ---
 
 
-<img src="images/surfs_up.png">
+<img src="images/surfs-up.png">
