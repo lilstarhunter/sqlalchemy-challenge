@@ -14,7 +14,7 @@ import datetime as dt
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///Resources/sawaii.sqlite")
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -48,7 +48,7 @@ def welcome():
         "Precipitation Results<br>"
         f"/api/v1.0/precipitation<br><br>"
          "========================<br><br>"
-        "sawaii Stations<br>"
+        "Hawaii Stations<br>"
         f"/api/v1.0/stations<br><br>"
         "========================<br><br>"
         f"/api/v1.0/tobs<br/>"
@@ -187,7 +187,7 @@ def query_startend(start, end):
         query_dict["station_id"] = station
         query_dict["name"] = name
         query_dict["min_temp"] = min_1
-        query_dict["avg_temp"] = avg_1
+        query_dict["avg_temp"] = round(avg_1,0)
         query_dict["max_temp"] = max_1
         query.append(query_dict)
 
