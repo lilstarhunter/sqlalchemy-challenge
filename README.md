@@ -20,15 +20,17 @@
 
 
 ## Part 2: Create a Hawaii Climate API
+**Objective:** Create an API for users to access Hawaii weather station data analysis\
 [Workflow](app.py)
-1. Homepage: available routes
+
+1. **api/v1.0/preciptiation**: Homepage listing available routes
 2. **api/v1.0/preciptiation**: summary statistics for Hawaii precipitation
 3. **api/v1.0/tobs**: Temperature for most active weather station
 4. **api/v1.0/start**:Summary statistics for each weather station from starting date to last recording (start = YYYY/MM/DD)
 5. **api/v1.0/start/end**: User defined date range for each weather station's summary statistics(start/end = YYYY/MM/DD)
 
 ## Bonus Analysis
-[workflow](climate_starter.ipynb) _see Bonus Section_
+[Workflow](climate_starter.ipynb) _see Bonus Section_
 
 **Trip Tempearture Analysis**\
 ***Holiday Vacation: 11/20/2020 - 11/26/20***
