@@ -1,7 +1,6 @@
 # SQLAlchemy Challenge
-**Completed By:** Lauren Stein\
-**Objective:** Create an API for querying Hawaii weather
----
+**Completed By:** Lauren Stein
+----
 
 <img src="images/hawaii.jpg">
 
@@ -34,3 +33,13 @@
 4. **api/v1.0/<start>**:Summary statistics for each weather station from starting date to last recording
 5. **api/v1.0/<start>/<end>**: User defined date range for each weather station's summary statistics
 
+## Bonus Analysis
+[workflow](climate_starter.ipynb) _see Bonus Section_
+
+**Trip Tempearture Analysis**
+***Holiday Vacation: 11/20/2020 - 11/26/20***
+1. Calculate the average temperature for the month and day of the beginning trip date
+<img src= "hawaii_trip_avg.png">
+
+2. Calculatue the temperature norms: minimum, maximum, and average for the month/day of the trip duration
+<img src= "hawaii_trip_norms.png">
