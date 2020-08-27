@@ -1,17 +1,17 @@
 # SQL Alchemy Challenge
 **Completed By:** Lauren Stein\
-**Objective:** Utilize SQLAlchemy to conduct data analysis for Hawaii weather station recordings and generate an API to browse the data
+**Objective:** Utilize SQLAlchemy to conduct data analysis for Hawaii weather station recordings and generate an API to browse the data.
 
 <img src="images/hawaii.jpg">
 ---
 
 ## Part 1: Climate Analysis and Exploration
-**Objective:** Conduct climate analysis on the 7 Hawaii weatherstations to assess annual rainfall and temperature
+**Objective:** Conduct climate analysis on the 7 Hawaii weatherstations to assess annual rainfall and temperature\
 [Workflow](climate_starter.ipynb)
 
 1. Create a [sqlite database](Resources/hawaii.sqlite) and SQLAlchemy to perform SQL queries and analyze with python
 2. Retrieve last 12 months of preciptitation data - run summary statistics and plot the data\
-8
+
 <img src="images/hawaii_rainfall.png">
 
 3. Create a histogram to assess temperature frequencies for the Hawaii station with the most recordings\
