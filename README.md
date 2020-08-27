@@ -22,7 +22,7 @@
 
 3. Create a histogram to assess temperature frequencies for the Hawaii station with the most recordings
 **Temperature Analysis**
-<img src="images/top_station_temp_heat.png>
+<img src="images/top_station_temp_heat.png">
 
 
 ## Part 2: Create a Hawaii Climate API
@@ -39,7 +39,7 @@
 **Trip Tempearture Analysis**
 ***Holiday Vacation: 11/20/2020 - 11/26/20***
 1. Calculate the average temperature for the month and day of the beginning trip date
-<img src= "hawaii_trip_avg.png">
+<img src= "images/hawaii_trip_avg.png">
 
 2. Calculatue the temperature norms: minimum, maximum, and average for the month/day of the trip duration
-<img src= "hawaii_trip_norms.png">
+<img src= "images/hawaii_trip_norms.png">
