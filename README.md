@@ -23,7 +23,7 @@
 **Objective:** Create an API for users to access Hawaii weather station data analysis\
 [Workflow](app.py)
 
-1. **api/v1.0/preciptiation**: Homepage listing available routes
+1. **api/v1.0**: Homepage listing available routes
 2. **api/v1.0/preciptiation**: summary statistics for Hawaii precipitation
 3. **api/v1.0/tobs**: Temperature for most active weather station
 4. **api/v1.0/start**:Summary statistics for each weather station from starting date to last recording (start = YYYY/MM/DD)
