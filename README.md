@@ -8,11 +8,11 @@
 **Objective:** Conduct climate analysis on the 7 Hawaii weatherstations to assess annual rainfall and temperature
 [Workflow](climate_starter.ipynb)
 1. Create a [sqlite database](Resources/hawaii.sqlite) and SQLAlchemy to perform SQL queries and analyze with python
-2. Retrieve last 12 months of preciptitation data - run summary statistics and plot the data
+2. Retrieve last 12 months of preciptitation data - run summary statistics and plot the data\
 **Precipitation Analysis**
 <img src="images/hawaii_rainfall.png">
 
-3. Create a histogram to assess temperature frequencies for the Hawaii station with the most recordings
+3. Create a histogram to assess temperature frequencies for the Hawaii station with the most recordings\
 **Temperature Analysis**
 <img src="images/top_station_temp_heat.png">
 
@@ -35,3 +35,5 @@
 
 2. Calculatue the temperature norms: minimum, maximum, and average for the month/day of the trip duration
 <img src= "images/hawaii_trip_norms.png">
+
+***Based on historical data, it looks like the weather for my trip will be absolutely BEAUTIFUL!!***
