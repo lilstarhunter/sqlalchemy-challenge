@@ -36,7 +36,7 @@
 ## Bonus Analysis
 [workflow](climate_starter.ipynb) _see Bonus Section_
 
-**Trip Tempearture Analysis**
+**Trip Tempearture Analysis**\
 ***Holiday Vacation: 11/20/2020 - 11/26/20***
 1. Calculate the average temperature for the month and day of the beginning trip date
 <img src= "images/hawaii_trip_avg.png">
