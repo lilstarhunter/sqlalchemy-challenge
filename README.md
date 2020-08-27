@@ -1,17 +1,10 @@
-# SQLAlchemy Challenge
-**Completed By:** Lauren Stein
-----
-
-<img src="images/hawaii.jpg">
-
-## Part 1: Climate Analysis and Exploration
-**Objective:** Conduct climate analysis on the 7 Hawaii weatherstations to assess annual rainfall and temperature
-* 
-# SQL Challenge
+# SQL Alchemy Challenge
 **Completed By:** Lauren Stein\
 **Objective:** Utilize SQLAlchemy to conduct data analysis for Hawaii weather station recordings and generate an API to browse the data
-
+<img src="images/hawaii.jpg">
 ---
+## Part 1: Climate Analysis and Exploration
+**Objective:** Conduct climate analysis on the 7 Hawaii weatherstations to assess annual rainfall and temperature
 
 ## Part 1: Climate Analysis and Exploration
 [Workflow](climate_starter.ipynb)
